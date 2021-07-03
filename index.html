@@ -1,0 +1,143 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>A Basic HTML5 Template</title>
+  <meta name="description" content="A simple HTML5 Template for new projects.">
+  <meta name="author" content="SitePoint">
+
+  <meta property="og:title" content="A Basic HTML5 Template">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
+  <meta property="og:description" content="A simple HTML5 Template for new projects.">
+  <meta property="og:image" content="image.png">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .decrypt {
+      display: none;
+    }
+
+    .encrypt {
+      display: block;
+    }
+
+    .row-content {
+      padding-top: 5em;
+    }
+
+    .card {
+      background-color: transparent;
+    }
+
+    .form {
+      padding: 10px 0px;
+    }
+
+    .encryption {
+      display: block;
+      
+    }
+
+    .decryption{
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body class="body bg-primary">
+  <!-- your content here... -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1>Encrypt & Decrypt</h1>
+      </div>
+    </div>
+    <div class="row row-content text-center">
+      <div class="col-12">
+        <div class="encrypt">
+          <button class="btn btn-success btn-lg" id="e-button">Decrypt</button>
+        </div>
+        <div class="decrypt">
+          <button class="btn btn-success btn-lg" id="d-button">Encrypt</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="encryption">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Encrypt the text!!</h3>
+            </div>
+            <div class="card-body">
+              <form class="form">
+                <textarea rows="5" placeholder="Enter the text" class="form-control" id="encrypt-text"></textarea>
+              </form>
+              <button class="btn btn-danger" id="encrypt-button">Encrypt the text</button>
+            </div>
+          </div>
+        </div>
+        <div class="decryption">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Decrypt the text!!</h3>
+            </div>
+            <div class="card-body">
+              <form class="form">
+                <textarea rows="5" placeholder="Enter the text" class="form-control" id="text"></textarea>
+              </form>
+              <button class="btn btn-danger">Decrypt the text</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    $(function () {
+      $.get("http://localhost:3000/encrypt", (data, res) => {
+        console.log(data)
+      })
+      $("#e-button").on("click", () => {
+        $(".decrypt").css("display", "block")
+        $(".encrypt").css("display", "none")
+        $(".encryption").css("display","none")
+        $(".decryption").css("display","block")
+      })
+      $("#d-button").on("click", () => {
+        $(".encrypt").css("display", "block")
+        $(".decrypt").css("display", "none")
+        $(".encryption").css("display","block")
+        $(".decryption").css("display","none")
+      })
+
+      $("#encrypt-button").on("click",()=>{
+        const value = $("#encrypt-text").val()
+        $.post("http://localhost:3000/done",{value},(data,res)=>{
+          console.log(data)
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>
